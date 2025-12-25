@@ -1,0 +1,8 @@
+{
+  "name": "DayNguyen",
+  "description": "A modern, AI-enhanced portfolio featuring Gemini-powered voice interactions, image generation, and video creation.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
