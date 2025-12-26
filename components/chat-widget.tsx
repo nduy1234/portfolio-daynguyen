@@ -136,6 +136,11 @@ export default function ChatWidget() {
           </div>
 
           <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50">
+            {error && (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
             {messages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 {msg.role === "model" && (

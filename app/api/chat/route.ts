@@ -5,7 +5,7 @@ export const runtime = "nodejs"
 
 export async function POST(request: Request) {
   try {
-    const { message, isNewSession } = await request.json()
+    const { message } = await request.json()
 
     if (!message) {
       return new Response("Message is required", { status: 400 })

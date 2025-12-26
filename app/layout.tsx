@@ -1,14 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import ChatWidget from "@/components/chat-widget"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Day Nguyen - Portfolio",
@@ -40,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className={`${geist.className} font-sans antialiased`}>
         <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-blue-100 selection:text-blue-900">
           <Navigation />
           <main className="flex-grow pt-24">{children}</main>

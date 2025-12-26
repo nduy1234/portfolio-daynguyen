@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import type { Project } from "@/types"
 import { ArrowUpRight, Github } from "lucide-react"
+import Image from "next/image"
 
 const projectsData: Project[] = [
   {
@@ -168,10 +169,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     >
       <div className="w-full md:w-7/12 relative overflow-hidden rounded-[2rem] shadow-xl shadow-slate-200 transition-all duration-500 ease-out group-hover:shadow-2xl group-hover:shadow-blue-900/10 group-hover:-translate-y-2">
         <div className="aspect-video bg-slate-100 relative overflow-hidden group/image">
-          <img
+          <Image
             src={project.image || "/placeholder.svg"}
             alt={`Screenshot of ${project.title}`}
-            className="w-full h-full object-cover transform transition-transform duration-700 ease-in-out group-hover/image:scale-105"
+            fill
+            sizes="(min-width: 768px) 58vw, 100vw"
+            className="object-cover transform transition-transform duration-700 ease-in-out group-hover/image:scale-105"
           />
           <div
             className="absolute inset-0 bg-slate-900/0 group-hover/image:bg-slate-900/5 transition-colors duration-500"
@@ -248,7 +251,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 }
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>(projectsData)
+  const projects: Project[] = projectsData
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

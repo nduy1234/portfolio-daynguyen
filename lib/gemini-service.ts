@@ -30,7 +30,13 @@ export const generateSpeech = async (text: string): Promise<AudioBuffer | null> 
     const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data
     if (!base64Audio) return null
 
-    const outputAudioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 })
+    const w = window as unknown as { webkitAudioContext?: typeof AudioContext }
+    const AudioContextCtor = window.AudioContext ?? w.webkitAudioContext
+    if (!AudioContextCtor) {
+      throw new Error("Web Audio API is not supported in this browser.")
+    }
+
+    const outputAudioContext = new AudioContextCtor({ sampleRate: 24000 })
     const audioBuffer = await decodeAudioData(decode(base64Audio), outputAudioContext, 24000, 1)
     return audioBuffer
   } catch (error) {
@@ -131,11 +137,12 @@ export const generateVideoDemo = async (
 }
 
 // --- Live API Helper (Partial logic, connection happens in component) ---
-export const createBlob = (data: Float32Array): any => {
+export const createBlob = (data: Float32Array): { data: string; mimeType: string } => {
   const l = data.length
   const int16 = new Int16Array(l)
   for (let i = 0; i < l; i++) {
-    int16[i] = data[i] * 32768
+    const sample = Math.max(-1, Math.min(1, data[i] ?? 0))
+    int16[i] = sample * 32768
   }
   return {
     data: encode(new Uint8Array(int16.buffer)),
