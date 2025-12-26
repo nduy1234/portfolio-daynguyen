@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Volume2, Loader2, PauseCircle, Sparkles, Send, User, Bot, ArrowRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import LiveVoice from "@/components/live-voice"
 import type { ChatMessage } from "@/types"
 
@@ -28,15 +29,24 @@ export default function About() {
   const bioText =
     "I'm a versatile professional who enjoys connecting people, technology, and creative ideas to solve meaningful problems. I bring a mix of strategic thinking, technical skills, and creative vision to the work I do, whether I'm building systems, shaping content, or improving processes. My background spans automation, marketing, design, and business analysis, giving me a broad perspective across higher education, public service, and tech environments. I've worked closely with cross-functional teams to translate complex needs into practical, user-centered solutions. Across roles, I'm motivated by creating inclusive, high-impact work that blends innovation with real value."
 
+  const getAudioContextConstructor = (): typeof AudioContext => {
+    const w = window as unknown as { webkitAudioContext?: typeof AudioContext }
+    const ctor = window.AudioContext ?? w.webkitAudioContext
+    if (!ctor) {
+      throw new Error("Web Audio API is not supported in this browser.")
+    }
+    return ctor
+  }
+
   const handlePlayTTS = async () => {
     if (isPlaying && audioContext) {
-      audioContext.suspend()
+      await audioContext.suspend()
       setIsPlaying(false)
       return
     }
 
     if (audioContext && audioContext.state === "suspended") {
-      audioContext.resume()
+      await audioContext.resume()
       setIsPlaying(true)
       return
     }
@@ -60,7 +70,8 @@ export default function About() {
       const audioData = Uint8Array.from(atob(base64Audio), (c) => c.charCodeAt(0))
       console.log("[v0] Decoded audio data, buffer length:", audioData.buffer.byteLength)
 
-      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
+      const AudioContextCtor = getAudioContextConstructor()
+      const ctx = new AudioContextCtor()
       console.log("[v0] Created AudioContext, decoding audio data...")
 
       const audioBuffer = await ctx.decodeAudioData(audioData.buffer)
@@ -88,11 +99,18 @@ export default function About() {
 
   useEffect(() => {
     return () => {
+      if (sourceNode) {
+        try {
+          sourceNode.stop()
+        } catch {
+          // ignore
+        }
+      }
       if (audioContext) {
         audioContext.close()
       }
     }
-  }, [audioContext])
+  }, [audioContext, sourceNode])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -179,11 +197,12 @@ export default function About() {
           <div className="order-2 md:order-1 relative w-full max-w-[250px] mx-auto md:mx-0 group">
             <div className="absolute -inset-4 bg-gradient-to-tr from-blue-200 to-indigo-100 rounded-full scale-100 group-hover:scale-105 transition-all duration-700 -z-10 opacity-70 blur-lg"></div>
 
-            <img
+            <Image
               src="/professional-headshot.png"
               alt="Day Nguyen"
               width={250}
               height={250}
+              priority
               className="rounded-full shadow-2xl w-full object-cover aspect-square transition-transform duration-700 ease-out hover:scale-[1.01]"
             />
           </div>
@@ -191,7 +210,7 @@ export default function About() {
           <div className="order-1 md:order-2 space-y-8 text-center md:text-left">
             <div>
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 tracking-tighter leading-none mb-4">
-                Hello, <br /> I'm{" "}
+                Hello, <br /> I&apos;m{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">Day</span>
               </h1>
             </div>
@@ -240,7 +259,7 @@ export default function About() {
               </div>
               <h3 className="text-3xl font-bold font-heading mb-4">Ask Gemini.</h3>
               <p className="text-slate-400 leading-relaxed">
-                Powered by Google's Gemini 3 Pro. This AI agent has read my resume, project details, and portfolio to
+                Powered by Google&apos;s Gemini 3 Pro. This AI agent has read my resume, project details, and portfolio to
                 answer your questions instantly.
               </p>
             </div>

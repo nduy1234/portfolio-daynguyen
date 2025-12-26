@@ -1,30 +1,47 @@
-# daynguyen
+# Portfolio Website (Next.js)
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A modern portfolio site built with **Next.js (App Router)**, **Tailwind CSS**, and optional **Gemini-powered** features:
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/dan229-9878s-projects/v0-daynguyen-je)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/JTQOdBb2fHo)
+- AI chat assistant (`/api/chat`)
+- AI “summarize experience” (`/api/summarize`)
+- Text-to-speech bio playback (`/api/tts`)
 
-## Overview
+## Getting started
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+Install dependencies:
 
-## Deployment
+```bash
+pnpm install
+```
 
-Your project is live at:
+Create an environment file:
 
-**[https://vercel.com/dan229-9878s-projects/v0-daynguyen-je](https://vercel.com/dan229-9878s-projects/v0-daynguyen-je)**
+```bash
+cp .env.example .env.local
+```
 
-## Build your app
+Then run the dev server:
 
-Continue building your app on:
+```bash
+pnpm dev
+```
 
-**[https://v0.app/chat/JTQOdBb2fHo](https://v0.app/chat/JTQOdBb2fHo)**
+Open `http://localhost:3000`.
 
-## How It Works
+## Environment variables
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+- **`GEMINI_API_KEY`**: Required for the AI routes (`/api/chat`, `/api/summarize`, `/api/tts`).  
+  If it’s missing, the portfolio still loads, but AI features will fail at runtime.
+
+## Production build
+
+```bash
+pnpm build
+pnpm start
+```
+
+## Lint
+
+```bash
+pnpm lint
+```
