@@ -113,7 +113,7 @@ const projectsData: Project[] = [
     description: "The Impact of Undergraduate Research Experience on Performance of Graduate Students in STEM",
     image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80",
     tags: ["Research", "STEM", "Education"],
-    repoUrl: "https://www.calstatela.edu/library",
+    repoUrl: "https://csu-la.primo.exlibrisgroup.com/permalink/01CALS_ULA/11bqoo1/alma991012159683202911",
     linkText: "Link",
     hideRepoIcon: true,
   },
@@ -123,7 +123,8 @@ const projectsData: Project[] = [
     description: "My Story as a First-Generation Student from Vietnamese Immigrant Background",
     image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80",
     tags: ["Research", "Autoethnography", "Education"],
-    repoUrl: "https://libraries.uvm.edu/home",
+    repoUrl:
+      "https://primo.uvm.edu/permalink/01UOV_INST/4441ti/cdi_uvm_scholarworks_v2_oai_scholarworks_uvm_edu_graddis_1739",
     linkText: "Link",
     hideRepoIcon: true,
   },
