@@ -238,10 +238,9 @@ export default function About() {
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20">
                 <Sparkles size={28} className="text-white" />
               </div>
-              <h3 className="text-3xl font-bold font-heading mb-4">Ask Gemini.</h3>
+              <h3 className="text-3xl font-bold font-heading mb-4">Ask AI.</h3>
               <p className="text-slate-400 leading-relaxed">
-                Powered by Google's Gemini 3 Pro. This AI agent has read my resume, project details, and portfolio to
-                answer your questions instantly.
+                This AI agent has read my resume, project details, and portfolio to answer your questions instantly.
               </p>
             </div>
 
