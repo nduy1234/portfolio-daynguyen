@@ -74,6 +74,7 @@ const volunteeringData = [
   "Student Union Board of Directors Committee",
   "University Services Board Committee",
   "Peer Mentoring Program",
+  "Ambassador Program",
 ]
 
 const awardsData = ["National Engagement in Leadership Award", "Service and Leadership Award"]
